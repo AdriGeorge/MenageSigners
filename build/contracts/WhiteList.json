@@ -1,0 +1,2482 @@
+{
+  "contractName": "WhiteList",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "whitelist",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "node",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        }
+      ],
+      "name": "addSigner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getWhiteListLength",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "i",
+          "type": "uint256"
+        }
+      ],
+      "name": "getWhiteNode",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"_description\",\"type\":\"string\"}],\"name\":\"addSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getWhiteListLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"i\",\"type\":\"uint256\"}],\"name\":\"getWhiteNode\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"whitelist\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"node\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Set & change owner\",\"methods\":{\"addSigner(address,string)\":{\"details\":\"Add a signer\",\"params\":{\"_address\":\"of signer\"}},\"getWhiteListLength()\":{\"details\":\"Return whitelist's length\"}},\"title\":\"SetSigners\"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/C/Users/Administrator/Desktop/Code/Stage/SetSigners/contracts/WhiteList.sol\":\"WhiteList\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/Administrator/Desktop/Code/Stage/SetSigners/contracts/WhiteList.sol\":{\"keccak256\":\"0xa7c8ff700b35c16a94727cefc87e9746d584ebf4c0a7bbe609294c2349271e32\",\"urls\":[\"bzz-raw://52eaf3c8f0dea922a8ab42b995ac7f41ee29ca728f2d83ab0f7a1348abfabe2a\",\"dweb:/ipfs/QmaVThRVecNytQLPd1q9WPBYZSv69nWnjWHEzuUuoFNiGw\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060008054600160a060020a0319163317905561062e806100326000396000f3fe608060405234801561001057600080fd5b5060043610610068577c0100000000000000000000000000000000000000000000000000000000600035046343df339d811461006d5780637ebd1b3014610125578063bb72ce42146101d3578063ee95842d146101ed575b600080fd5b6101236004803603604081101561008357600080fd5b600160a060020a0382351691908101906040810160208201356401000000008111156100ae57600080fd5b8201836020820111156100c057600080fd5b803590602001918460018302840111640100000000831117156100e257600080fd5b91908080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525092955061020a945050505050565b005b6101426004803603602081101561013b57600080fd5b5035610332565b6040518083600160a060020a0316600160a060020a0316815260200180602001828103825283818151815260200191508051906020019080838360005b8381101561019757818101518382015260200161017f565b50505050905090810190601f1680156101c45780820380516001836020036101000a031916815260200191505b50935050505060405180910390f35b6101db6103f4565b60408051918252519081900360200190f35b6101426004803603602081101561020357600080fd5b50356103fb565b600054600160a060020a0316331461022157600080fd5b600160a060020a0382166000818152600160208181526040909220805473ffffffffffffffffffffffffffffffffffffffff19169093178355835161026c93909101918401906104ec565b50600160a060020a0380831660009081526001602081905260408220600280548084018083559482905282549082027f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace8101805473ffffffffffffffffffffffffffffffffffffffff191692909716919091178655828401805495969395939461032a947f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5acf909301939192908116156101000260001901160461056a565b505050505050565b6002818154811061033f57fe5b600091825260209182902060029182020180546001808301805460408051601f60001995841615610100029590950190921696909604928301879004870281018701909552818552600160a060020a03909216955091939091908301828280156103ea5780601f106103bf576101008083540402835291602001916103ea565b820191906000526020600020905b8154815290600101906020018083116103cd57829003601f168201915b5050505050905082565b6002545b90565b600060606002838154811061040c57fe5b60009182526020909120600291820201548154600160a060020a0390911691908590811061043657fe5b9060005260206000209060020201600101808054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104dc5780601f106104b1576101008083540402835291602001916104dc565b820191906000526020600020905b8154815290600101906020018083116104bf57829003601f168201915b5050505050905091509150915091565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061052d57805160ff191683800117855561055a565b8280016001018555821561055a579182015b8281111561055a57825182559160200191906001019061053f565b506105669291506105df565b5090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106105a3578054855561055a565b8280016001018555821561055a57600052602060002091601f016020900482015b8281111561055a5782548255916001019190600101906105c4565b6103f891905b8082111561056657600081556001016105e556fea265627a7a723158205620b5e724b24683b661898a5a76018437958962d2ffe1e19e961361230919ba64736f6c63430005100032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b5060043610610068577c0100000000000000000000000000000000000000000000000000000000600035046343df339d811461006d5780637ebd1b3014610125578063bb72ce42146101d3578063ee95842d146101ed575b600080fd5b6101236004803603604081101561008357600080fd5b600160a060020a0382351691908101906040810160208201356401000000008111156100ae57600080fd5b8201836020820111156100c057600080fd5b803590602001918460018302840111640100000000831117156100e257600080fd5b91908080601f01602080910402602001604051908101604052809392919081815260200183838082843760009201919091525092955061020a945050505050565b005b6101426004803603602081101561013b57600080fd5b5035610332565b6040518083600160a060020a0316600160a060020a0316815260200180602001828103825283818151815260200191508051906020019080838360005b8381101561019757818101518382015260200161017f565b50505050905090810190601f1680156101c45780820380516001836020036101000a031916815260200191505b50935050505060405180910390f35b6101db6103f4565b60408051918252519081900360200190f35b6101426004803603602081101561020357600080fd5b50356103fb565b600054600160a060020a0316331461022157600080fd5b600160a060020a0382166000818152600160208181526040909220805473ffffffffffffffffffffffffffffffffffffffff19169093178355835161026c93909101918401906104ec565b50600160a060020a0380831660009081526001602081905260408220600280548084018083559482905282549082027f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace8101805473ffffffffffffffffffffffffffffffffffffffff191692909716919091178655828401805495969395939461032a947f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5acf909301939192908116156101000260001901160461056a565b505050505050565b6002818154811061033f57fe5b600091825260209182902060029182020180546001808301805460408051601f60001995841615610100029590950190921696909604928301879004870281018701909552818552600160a060020a03909216955091939091908301828280156103ea5780601f106103bf576101008083540402835291602001916103ea565b820191906000526020600020905b8154815290600101906020018083116103cd57829003601f168201915b5050505050905082565b6002545b90565b600060606002838154811061040c57fe5b60009182526020909120600291820201548154600160a060020a0390911691908590811061043657fe5b9060005260206000209060020201600101808054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104dc5780601f106104b1576101008083540402835291602001916104dc565b820191906000526020600020905b8154815290600101906020018083116104bf57829003601f168201915b5050505050905091509150915091565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061052d57805160ff191683800117855561055a565b8280016001018555821561055a579182015b8281111561055a57825182559160200191906001019061053f565b506105669291506105df565b5090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106105a3578054855561055a565b8280016001018555821561055a57600052602060002091601f016020900482015b8281111561055a5782548255916001019190600101906105c4565b6103f891905b8082111561056657600081556001016105e556fea265627a7a723158205620b5e724b24683b661898a5a76018437958962d2ffe1e19e961361230919ba64736f6c63430005100032",
+  "sourceMap": "98:1042:2:-;;;415:58;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;447:5:2;:18;;-1:-1:-1;;;;;;447:18:2;455:10;447:18;;;98:1042;;;;;;",
+  "deployedSourceMap": "98:1042:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;98:1042:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;571:242;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;;;;;571:242:2;;;;;;;;;;;;;;;21:11:-1;5:28;;2:2;;;46:1;43;36:12;2:2;571:242:2;;35:9:-1;28:4;12:14;8:25;5:40;2:2;;;58:1;55;48:12;2:2;571:242:2;;;;;;100:9:-1;95:1;81:12;77:20;67:8;63:35;60:50;39:11;25:12;22:29;11:107;8:2;;;131:1;128;121:12;8:2;571:242:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;30:3:-1;22:6;14;1:33;99:1;81:16;;74:27;;;;-1:-1;571:242:2;;-1:-1:-1;571:242:2;;-1:-1:-1;;;;;571:242:2:i;:::-;;284:28;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;284:28:2;;:::i;:::-;;;;;-1:-1:-1;;;;;284:28:2;-1:-1:-1;;;;;284:28:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;284:28:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;879:98;;;:::i;:::-;;;;;;;;;;;;;;;;985:146;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;985:146:2;;:::i;571:242::-;377:5;;-1:-1:-1;;;;;377:5:2;363:10;:19;355:28;;;;;;-1:-1:-1;;;;;664:20:2;;;;;;:10;:20;;;;;;;;:36;;-1:-1:-1;;664:36:2;;;;;;711:47;;;;:32;;;;:47;;;;:::i;:::-;-1:-1:-1;;;;;;784:20:2;;;;;;;:10;:20;;;;;;;769:9;27:10:-1;;23:18;;;45:23;;;769:36:2;;;;;;;;;;;;;;-1:-1:-1;;769:36:2;;;;;;;;;;;;;;;;23:18:-1;;784:20:2;;769:36;;;;;;;;;;;;;;;;;-1:-1:-1;;769:36:2;;;;:::i;:::-;;;;;571:242;;:::o;284:28::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;284:28:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;284:28:2;;;;-1:-1:-1;284:28:2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;879:98::-;953:9;:16;879:98;;:::o;985:146::-;1036:7;1045:13;1079:9;1089:1;1079:12;;;;;;;;;;;;;;;;;;;;;:17;1098:12;;-1:-1:-1;;;;;1079:17:2;;;;:12;1108:1;;1098:12;;;;;;;;;;;;;;;;:24;;1071:52;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;985:146;;;:::o;98:1042::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;98:1042:2;;;-1:-1:-1;98:1042:2;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "source": "pragma solidity >=0.4.22 <0.8.0;\r\n\r\n/**\r\n * @title SetSigners\r\n * @dev Set & change owner\r\n */\r\n\r\ncontract WhiteList {\r\n    \r\n    address owner;\r\n\r\n    struct WhiteNode {\r\n        address node;\r\n        string description;\r\n    }\r\n\r\n    mapping(address => WhiteNode) whitenodes;\r\n    WhiteNode[] public whitelist;\r\n    \r\n    modifier onlyOwner {\r\n        require(msg.sender == owner);\r\n        _;\r\n    }\r\n    \r\n    constructor() public {\r\n        owner = msg.sender;\r\n    }\r\n    \r\n    \r\n    /** \r\n     * @dev Add a signer\r\n     * @param _address of signer\r\n     */ \r\n    function addSigner(address _address, string memory _description) public onlyOwner {\r\n        whitenodes[_address].node = _address;\r\n        whitenodes[_address].description = _description;\r\n        whitelist.push(whitenodes[_address]);\r\n    }\r\n\r\n    /** \r\n     * @dev Return whitelist's length\r\n     */\r\n    function getWhiteListLength() public view returns (uint){\r\n        return whitelist.length;\r\n    }\r\n\r\n    function getWhiteNode(uint i) public view returns (address, string memory) {\r\n        return (whitelist[i].node, whitelist[i].description);\r\n    }\r\n    \r\n}",
+  "sourcePath": "C:/Users/Administrator/Desktop/Code/Stage/SetSigners/contracts/WhiteList.sol",
+  "ast": {
+    "absolutePath": "/C/Users/Administrator/Desktop/Code/Stage/SetSigners/contracts/WhiteList.sol",
+    "exportedSymbols": {
+      "WhiteList": [
+        153
+      ]
+    },
+    "id": 154,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 57,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title SetSigners\n@dev Set & change owner",
+        "fullyImplemented": true,
+        "id": 153,
+        "linearizedBaseContracts": [
+          153
+        ],
+        "name": "WhiteList",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 59,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 153,
+            "src": "130:13:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 58,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "130:7:2",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "canonicalName": "WhiteList.WhiteNode",
+            "id": 64,
+            "members": [
+              {
+                "constant": false,
+                "id": 61,
+                "name": "node",
+                "nodeType": "VariableDeclaration",
+                "scope": 64,
+                "src": "180:12:2",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 60,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "180:7:2",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 63,
+                "name": "description",
+                "nodeType": "VariableDeclaration",
+                "scope": 64,
+                "src": "203:18:2",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 62,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "203:6:2",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "WhiteNode",
+            "nodeType": "StructDefinition",
+            "scope": 153,
+            "src": "152:77:2",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 68,
+            "name": "whitenodes",
+            "nodeType": "VariableDeclaration",
+            "scope": 153,
+            "src": "237:40:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+              "typeString": "mapping(address => struct WhiteList.WhiteNode)"
+            },
+            "typeName": {
+              "id": 67,
+              "keyType": {
+                "id": 65,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "245:7:2",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "237:29:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                "typeString": "mapping(address => struct WhiteList.WhiteNode)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 66,
+                "name": "WhiteNode",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 64,
+                "src": "256:9:2",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_WhiteNode_$64_storage_ptr",
+                  "typeString": "struct WhiteList.WhiteNode"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 71,
+            "name": "whitelist",
+            "nodeType": "VariableDeclaration",
+            "scope": 153,
+            "src": "284:28:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+              "typeString": "struct WhiteList.WhiteNode[]"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 69,
+                "name": "WhiteNode",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 64,
+                "src": "284:9:2",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_WhiteNode_$64_storage_ptr",
+                  "typeString": "struct WhiteList.WhiteNode"
+                }
+              },
+              "id": 70,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "284:11:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage_ptr",
+                "typeString": "struct WhiteList.WhiteNode[]"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 81,
+              "nodeType": "Block",
+              "src": "344:59:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 77,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 74,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 168,
+                            "src": "363:3:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 75,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "363:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "id": 76,
+                          "name": "owner",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 59,
+                          "src": "377:5:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "363:19:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 73,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        171,
+                        172
+                      ],
+                      "referencedDeclaration": 171,
+                      "src": "355:7:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 78,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "355:28:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 79,
+                  "nodeType": "ExpressionStatement",
+                  "src": "355:28:2"
+                },
+                {
+                  "id": 80,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "394:1:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 82,
+            "name": "onlyOwner",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 72,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "344:0:2"
+            },
+            "src": "325:78:2",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 90,
+              "nodeType": "Block",
+              "src": "436:37:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 88,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 85,
+                      "name": "owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 59,
+                      "src": "447:5:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 86,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 168,
+                        "src": "455:3:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 87,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "455:10:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "447:18:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 89,
+                  "nodeType": "ExpressionStatement",
+                  "src": "447:18:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 91,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 83,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "426:2:2"
+            },
+            "returnParameters": {
+              "id": 84,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "436:0:2"
+            },
+            "scope": 153,
+            "src": "415:58:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 122,
+              "nodeType": "Block",
+              "src": "653:160:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 105,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 100,
+                          "name": "whitenodes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 68,
+                          "src": "664:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                            "typeString": "mapping(address => struct WhiteList.WhiteNode storage ref)"
+                          }
+                        },
+                        "id": 102,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 101,
+                          "name": "_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 93,
+                          "src": "675:8:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "664:20:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      },
+                      "id": 103,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "node",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 61,
+                      "src": "664:25:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 104,
+                      "name": "_address",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 93,
+                      "src": "692:8:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "664:36:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 106,
+                  "nodeType": "ExpressionStatement",
+                  "src": "664:36:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 107,
+                          "name": "whitenodes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 68,
+                          "src": "711:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                            "typeString": "mapping(address => struct WhiteList.WhiteNode storage ref)"
+                          }
+                        },
+                        "id": 109,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 108,
+                          "name": "_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 93,
+                          "src": "722:8:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "711:20:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      },
+                      "id": 110,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "description",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 63,
+                      "src": "711:32:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 111,
+                      "name": "_description",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 95,
+                      "src": "746:12:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "711:47:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 113,
+                  "nodeType": "ExpressionStatement",
+                  "src": "711:47:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 117,
+                          "name": "whitenodes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 68,
+                          "src": "784:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                            "typeString": "mapping(address => struct WhiteList.WhiteNode storage ref)"
+                          }
+                        },
+                        "id": 119,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 118,
+                          "name": "_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 93,
+                          "src": "795:8:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "784:20:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 114,
+                        "name": "whitelist",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 71,
+                        "src": "769:9:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                        }
+                      },
+                      "id": 116,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "769:14:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_WhiteNode_$64_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct WhiteList.WhiteNode storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 120,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "769:36:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 121,
+                  "nodeType": "ExpressionStatement",
+                  "src": "769:36:2"
+                }
+              ]
+            },
+            "documentation": "@dev Add a signer\n@param _address of signer",
+            "id": 123,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 98,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 97,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 82,
+                  "src": "643:9:2",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "643:9:2"
+              }
+            ],
+            "name": "addSigner",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 96,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 93,
+                  "name": "_address",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 123,
+                  "src": "590:16:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 92,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "590:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 95,
+                  "name": "_description",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 123,
+                  "src": "608:26:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 94,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "608:6:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "589:46:2"
+            },
+            "returnParameters": {
+              "id": 99,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "653:0:2"
+            },
+            "scope": 153,
+            "src": "571:242:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 131,
+              "nodeType": "Block",
+              "src": "935:42:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 128,
+                      "name": "whitelist",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 71,
+                      "src": "953:9:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                        "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                      }
+                    },
+                    "id": 129,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "length",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": null,
+                    "src": "953:16:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 127,
+                  "id": 130,
+                  "nodeType": "Return",
+                  "src": "946:23:2"
+                }
+              ]
+            },
+            "documentation": "@dev Return whitelist's length",
+            "id": 132,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getWhiteListLength",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 124,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "906:2:2"
+            },
+            "returnParameters": {
+              "id": 127,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 126,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 132,
+                  "src": "930:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 125,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "930:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "929:6:2"
+            },
+            "scope": 153,
+            "src": "879:98:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 151,
+              "nodeType": "Block",
+              "src": "1060:71:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 141,
+                            "name": "whitelist",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 71,
+                            "src": "1079:9:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                              "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                            }
+                          },
+                          "id": 143,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 142,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 134,
+                            "src": "1089:1:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1079:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                            "typeString": "struct WhiteList.WhiteNode storage ref"
+                          }
+                        },
+                        "id": 144,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "node",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 61,
+                        "src": "1079:17:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 145,
+                            "name": "whitelist",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 71,
+                            "src": "1098:9:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                              "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                            }
+                          },
+                          "id": 147,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 146,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 134,
+                            "src": "1108:1:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1098:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                            "typeString": "struct WhiteList.WhiteNode storage ref"
+                          }
+                        },
+                        "id": 148,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "description",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 63,
+                        "src": "1098:24:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      }
+                    ],
+                    "id": 149,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1078:45:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_address_$_t_string_storage_$",
+                      "typeString": "tuple(address,string storage ref)"
+                    }
+                  },
+                  "functionReturnParameters": 140,
+                  "id": 150,
+                  "nodeType": "Return",
+                  "src": "1071:52:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 152,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getWhiteNode",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 135,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 134,
+                  "name": "i",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "1007:6:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 133,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1007:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1006:8:2"
+            },
+            "returnParameters": {
+              "id": 140,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 137,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "1036:7:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 136,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1036:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 139,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "1045:13:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 138,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1045:6:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1035:24:2"
+            },
+            "scope": 153,
+            "src": "985:146:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 154,
+        "src": "98:1042:2"
+      }
+    ],
+    "src": "0:1140:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/C/Users/Administrator/Desktop/Code/Stage/SetSigners/contracts/WhiteList.sol",
+    "exportedSymbols": {
+      "WhiteList": [
+        153
+      ]
+    },
+    "id": 154,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 57,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title SetSigners\n@dev Set & change owner",
+        "fullyImplemented": true,
+        "id": 153,
+        "linearizedBaseContracts": [
+          153
+        ],
+        "name": "WhiteList",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 59,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 153,
+            "src": "130:13:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 58,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "130:7:2",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "canonicalName": "WhiteList.WhiteNode",
+            "id": 64,
+            "members": [
+              {
+                "constant": false,
+                "id": 61,
+                "name": "node",
+                "nodeType": "VariableDeclaration",
+                "scope": 64,
+                "src": "180:12:2",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 60,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "180:7:2",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 63,
+                "name": "description",
+                "nodeType": "VariableDeclaration",
+                "scope": 64,
+                "src": "203:18:2",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 62,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "203:6:2",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "WhiteNode",
+            "nodeType": "StructDefinition",
+            "scope": 153,
+            "src": "152:77:2",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 68,
+            "name": "whitenodes",
+            "nodeType": "VariableDeclaration",
+            "scope": 153,
+            "src": "237:40:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+              "typeString": "mapping(address => struct WhiteList.WhiteNode)"
+            },
+            "typeName": {
+              "id": 67,
+              "keyType": {
+                "id": 65,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "245:7:2",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "237:29:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                "typeString": "mapping(address => struct WhiteList.WhiteNode)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 66,
+                "name": "WhiteNode",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 64,
+                "src": "256:9:2",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_WhiteNode_$64_storage_ptr",
+                  "typeString": "struct WhiteList.WhiteNode"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 71,
+            "name": "whitelist",
+            "nodeType": "VariableDeclaration",
+            "scope": 153,
+            "src": "284:28:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+              "typeString": "struct WhiteList.WhiteNode[]"
+            },
+            "typeName": {
+              "baseType": {
+                "contractScope": null,
+                "id": 69,
+                "name": "WhiteNode",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 64,
+                "src": "284:9:2",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_WhiteNode_$64_storage_ptr",
+                  "typeString": "struct WhiteList.WhiteNode"
+                }
+              },
+              "id": 70,
+              "length": null,
+              "nodeType": "ArrayTypeName",
+              "src": "284:11:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage_ptr",
+                "typeString": "struct WhiteList.WhiteNode[]"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 81,
+              "nodeType": "Block",
+              "src": "344:59:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 77,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 74,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 168,
+                            "src": "363:3:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 75,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": null,
+                          "src": "363:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "id": 76,
+                          "name": "owner",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 59,
+                          "src": "377:5:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "363:19:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 73,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        171,
+                        172
+                      ],
+                      "referencedDeclaration": 171,
+                      "src": "355:7:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 78,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "355:28:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 79,
+                  "nodeType": "ExpressionStatement",
+                  "src": "355:28:2"
+                },
+                {
+                  "id": 80,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "394:1:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 82,
+            "name": "onlyOwner",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 72,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "344:0:2"
+            },
+            "src": "325:78:2",
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 90,
+              "nodeType": "Block",
+              "src": "436:37:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 88,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 85,
+                      "name": "owner",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 59,
+                      "src": "447:5:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 86,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 168,
+                        "src": "455:3:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 87,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "455:10:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address_payable",
+                        "typeString": "address payable"
+                      }
+                    },
+                    "src": "447:18:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 89,
+                  "nodeType": "ExpressionStatement",
+                  "src": "447:18:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 91,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 83,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "426:2:2"
+            },
+            "returnParameters": {
+              "id": 84,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "436:0:2"
+            },
+            "scope": 153,
+            "src": "415:58:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 122,
+              "nodeType": "Block",
+              "src": "653:160:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 105,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 100,
+                          "name": "whitenodes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 68,
+                          "src": "664:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                            "typeString": "mapping(address => struct WhiteList.WhiteNode storage ref)"
+                          }
+                        },
+                        "id": 102,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 101,
+                          "name": "_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 93,
+                          "src": "675:8:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "664:20:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      },
+                      "id": 103,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "node",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 61,
+                      "src": "664:25:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 104,
+                      "name": "_address",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 93,
+                      "src": "692:8:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "664:36:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 106,
+                  "nodeType": "ExpressionStatement",
+                  "src": "664:36:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 107,
+                          "name": "whitenodes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 68,
+                          "src": "711:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                            "typeString": "mapping(address => struct WhiteList.WhiteNode storage ref)"
+                          }
+                        },
+                        "id": 109,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 108,
+                          "name": "_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 93,
+                          "src": "722:8:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "711:20:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      },
+                      "id": 110,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "description",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 63,
+                      "src": "711:32:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 111,
+                      "name": "_description",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 95,
+                      "src": "746:12:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "711:47:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 113,
+                  "nodeType": "ExpressionStatement",
+                  "src": "711:47:2"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 117,
+                          "name": "whitenodes",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 68,
+                          "src": "784:10:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_WhiteNode_$64_storage_$",
+                            "typeString": "mapping(address => struct WhiteList.WhiteNode storage ref)"
+                          }
+                        },
+                        "id": 119,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 118,
+                          "name": "_address",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 93,
+                          "src": "795:8:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "784:20:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 114,
+                        "name": "whitelist",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 71,
+                        "src": "769:9:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                          "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                        }
+                      },
+                      "id": 116,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "769:14:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_struct$_WhiteNode_$64_storage_$returns$_t_uint256_$",
+                        "typeString": "function (struct WhiteList.WhiteNode storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 120,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "769:36:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 121,
+                  "nodeType": "ExpressionStatement",
+                  "src": "769:36:2"
+                }
+              ]
+            },
+            "documentation": "@dev Add a signer\n@param _address of signer",
+            "id": 123,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 98,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 97,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 82,
+                  "src": "643:9:2",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "643:9:2"
+              }
+            ],
+            "name": "addSigner",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 96,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 93,
+                  "name": "_address",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 123,
+                  "src": "590:16:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 92,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "590:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 95,
+                  "name": "_description",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 123,
+                  "src": "608:26:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 94,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "608:6:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "589:46:2"
+            },
+            "returnParameters": {
+              "id": 99,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "653:0:2"
+            },
+            "scope": 153,
+            "src": "571:242:2",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 131,
+              "nodeType": "Block",
+              "src": "935:42:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "expression": {
+                      "argumentTypes": null,
+                      "id": 128,
+                      "name": "whitelist",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 71,
+                      "src": "953:9:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                        "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                      }
+                    },
+                    "id": 129,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberName": "length",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": null,
+                    "src": "953:16:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 127,
+                  "id": 130,
+                  "nodeType": "Return",
+                  "src": "946:23:2"
+                }
+              ]
+            },
+            "documentation": "@dev Return whitelist's length",
+            "id": 132,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getWhiteListLength",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 124,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "906:2:2"
+            },
+            "returnParameters": {
+              "id": 127,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 126,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 132,
+                  "src": "930:4:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 125,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "930:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "929:6:2"
+            },
+            "scope": 153,
+            "src": "879:98:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 151,
+              "nodeType": "Block",
+              "src": "1060:71:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 141,
+                            "name": "whitelist",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 71,
+                            "src": "1079:9:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                              "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                            }
+                          },
+                          "id": 143,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 142,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 134,
+                            "src": "1089:1:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1079:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                            "typeString": "struct WhiteList.WhiteNode storage ref"
+                          }
+                        },
+                        "id": 144,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "node",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 61,
+                        "src": "1079:17:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 145,
+                            "name": "whitelist",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 71,
+                            "src": "1098:9:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_array$_t_struct$_WhiteNode_$64_storage_$dyn_storage",
+                              "typeString": "struct WhiteList.WhiteNode storage ref[] storage ref"
+                            }
+                          },
+                          "id": 147,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 146,
+                            "name": "i",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 134,
+                            "src": "1108:1:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1098:12:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_WhiteNode_$64_storage",
+                            "typeString": "struct WhiteList.WhiteNode storage ref"
+                          }
+                        },
+                        "id": 148,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "description",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 63,
+                        "src": "1098:24:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_storage",
+                          "typeString": "string storage ref"
+                        }
+                      }
+                    ],
+                    "id": 149,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "1078:45:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_address_$_t_string_storage_$",
+                      "typeString": "tuple(address,string storage ref)"
+                    }
+                  },
+                  "functionReturnParameters": 140,
+                  "id": 150,
+                  "nodeType": "Return",
+                  "src": "1071:52:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 152,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getWhiteNode",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 135,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 134,
+                  "name": "i",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "1007:6:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 133,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1007:4:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1006:8:2"
+            },
+            "returnParameters": {
+              "id": 140,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 137,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "1036:7:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 136,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1036:7:2",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 139,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "1045:13:2",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 138,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1045:6:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1035:24:2"
+            },
+            "scope": 153,
+            "src": "985:146:2",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 154,
+        "src": "98:1042:2"
+      }
+    ],
+    "src": "0:1140:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {
+    "1515": {
+      "events": {},
+      "links": {},
+      "address": "0x4Cc0dcCa779bcd1652098C68ceC0369198562552",
+      "transactionHash": "0xd5b68d11519520ffc31190cc0e156b0556b6a5ed8a00b1199698d3bd82cbb8fe"
+    }
+  },
+  "schemaVersion": "3.0.22",
+  "updatedAt": "2020-09-19T12:41:38.777Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "details": "Set & change owner",
+    "methods": {
+      "addSigner(address,string)": {
+        "details": "Add a signer",
+        "params": {
+          "_address": "of signer"
+        }
+      },
+      "getWhiteListLength()": {
+        "details": "Return whitelist's length"
+      }
+    },
+    "title": "SetSigners"
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
