@@ -72,7 +72,7 @@ function App() {
 
   const handleOpenDiscard = async () => {
     if (addressToDiscardArray.length <1) {
-      getSigners();
+      checkProposals();
       await new Promise(r => setTimeout(r, 200));
     };
     setOpenDiscard(true);
@@ -92,8 +92,6 @@ function App() {
       addressDescription[i] = node[i].description;
     };
     console.log(node);
-    console.log(addressToVote);
-    console.log(addressDescription);
   };
 
   // The following methods are clique method 
@@ -106,30 +104,34 @@ function App() {
   const getSigners = async () => {
     const result = await client.request({method: "clique_getSigners", params: []});
     console.log(result);
-    console.log("getSigners")
-    for (let i=0; i<result.length; i++){
-      addressToDiscardArray[i] = result[i];
-    };
+    console.log("getSigners");
   };
 
   const propose = async (e, vote) => {
-    //const result = await client.request({method: "clique_propose", params: [e, vote]});
-    //console.log(result);
-
+    const result = await client.request({method: "clique_propose", params: [e, vote]});
+    addressToDiscardArray[addressToDiscardArray.length] = e;
+    console.log(result);
     console.log("propose" + e + ", "+ vote);
   };
 
   const discard = async(e) => {
-    //const result = await client.request({method: "clique_discard", params: [e]});
-    //console.log(result);
-    console.log("discard" + e);
-
+    const result = await client.request({method: "clique_discard", params: [e]});
+    var i = addressToDiscardArray.indexOf(e);
+    if(i > -1){
+      addressToDiscardArray.splice(i, 1);
+    }
+    console.log(result);
+    console.log("discard: " + e);
   };
 
   const checkProposals = async() => {
     const result = await client.request({method: "clique_proposals", params: []});
     console.log(result);
-    console.log("checkProposalss")
+    console.log("checkProposals")
+    for (let i=0; i<result.length; i++){
+      addressToDiscardArray[i] = result[i];
+    };
+    console.log("address: " + addressToDiscardArray);
   };
 
   const getSnapShot = async () => {
