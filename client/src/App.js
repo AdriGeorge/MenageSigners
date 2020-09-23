@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import Web3 from 'web3';
-import { contract } from './abi/abis';
-import './App.css';
 import { RequestManager, HTTPTransport, Client } from "@open-rpc/client-js";
-import 'bootstrap/dist/css/bootstrap.css';
+import { contract } from './abi/abis';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Menu from '@material-ui/core/Menu';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 const transport = new HTTPTransport("http://localhost:8501");
 const requestManager = new RequestManager([transport]);
 const client = new Client(new RequestManager([transport]));
-
 const web3 = new Web3(Web3.givenProvider);
 
 const contractAddr = '0x4Cc0dcCa779bcd1652098C68ceC0369198562552';
@@ -42,9 +42,13 @@ function App() {
   const [openDiscard, setOpenDiscard] = React.useState(false);
   const [addressToVote, setAddressToVote] = React.useState([]);
   const [addressToDiscardArray, setAddressToDiscard] = React.useState([]);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  var node = {};
+  var signers = [];
+  var nodes = {};
   var addressDescription = [];
+
+  // Methods for handle controller selected label => Account to propose and to discard
 
   const handleChange = (event) => {
     setAccount(event.target.value);
@@ -79,7 +83,18 @@ function App() {
   };
 
 
-  // The following method interact with the smart contract WhiteList.sol
+  //method for handle Information
+
+  const handleClickInfo = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseInfo = () => {
+    setAnchorEl(null);
+  };
+
+
+  // This method interact with the smart contract WhiteList.sol
   const getAccountToVote = async () => {
     const array = [];
     const accounts = await window.ethereum.enable();
@@ -87,61 +102,63 @@ function App() {
     const listLength = await WhiteListContract.methods.getWhiteListLength().call();
     for (let i=0; i<listLength; i++){
       let result = await WhiteListContract.methods.getWhiteNode(i).call();
-      node[i] = {nodeAddress: result[0], description: result[1]};
-      addressToVote[i] = node[i].nodeAddress;
-      addressDescription[i] = node[i].description;
+      if(!alreadySigner(result[0])){
+        nodes[i] = {nodeAddress: result[0], description: result[1]};
+        addressToVote[i] = nodes[i].nodeAddress;
+        addressDescription[i] = nodes[i].description;
+      };
     };
-    console.log(node);
+    console.log("Account To Vote: " + nodes);
   };
 
-  // The following methods are clique method 
+  function alreadySigner(node) {
+    if (signers.length < 1) getSigners();
+    for (var i=0; i<signers.length; i++){
+      if (signers[i] === node) return true;
+    }
+    return false;
+  };
+
+  // The following methods are clique method => RPC CALL
   const checkStatus = async () => {
     const result = await client.request({method: "clique_status", params: []});
+    console.log("Status:")
     console.log(result);
-    console.log("status")
   };
 
   const getSigners = async () => {
-    const result = await client.request({method: "clique_getSigners", params: []});
-    console.log(result);
-    console.log("getSigners");
+    signers = await client.request({method: "clique_getSigners", params: []});
+    console.log("Singers: " + signers);
   };
 
   const propose = async (e, vote) => {
-    const result = await client.request({method: "clique_propose", params: [e, vote]});
+    await client.request({method: "clique_propose", params: [e, vote]});
     addressToDiscardArray[addressToDiscardArray.length] = e;
-    console.log(result);
-    console.log("propose" + e + ", "+ vote);
+    console.log("Your proposal: " + e + ", "+ vote);
   };
 
-  const discard = async(e) => {
-    const result = await client.request({method: "clique_discard", params: [e]});
+  const discard = async (e) => {
+    await client.request({method: "clique_discard", params: [e]});
     var i = addressToDiscardArray.indexOf(e);
     if(i > -1){
       addressToDiscardArray.splice(i, 1);
     }
-    console.log(result);
-    console.log("discard: " + e);
+    console.log("You just discard: " + e);
   };
 
-  const checkProposals = async() => {
+  const checkProposals = async () => {
     const result = await client.request({method: "clique_proposals", params: []});
-    console.log(result);
-    console.log("checkProposals")
     for (let i=0; i<result.length; i++){
       addressToDiscardArray[i] = result[i];
     };
-    console.log("address: " + addressToDiscardArray);
+    console.log("Address already voted: " + addressToDiscardArray);
   };
 
   const getSnapShot = async () => {
     const result = await client.request({method: "clique_getSnapshot", params: []});
+    console.log("SnapShot:");
     console.log(result);
-    console.log("getSnapShot")
   };
-
-
-
 
 
   return (
@@ -164,16 +181,16 @@ function App() {
                     <em>None</em>
                   </MenuItem>
                   {addressToVote.map((value, index) => {
-                    return <MenuItem value={addressToVote[index]}>{value}</MenuItem>
+                    return <MenuItem value={addressToVote[index]}>{value} </MenuItem>
                   })}
                 </Select>
               </FormControl>
           </label>
           <label>
-            <button type="button" className="btn btn-success" onClick={ e => propose(account, true)}> 
+            <button type="button" className="btn btn-outline-success" onClick={ e => propose(account, true)}> 
               Accept 
             </button>
-            <button type="button" className="btn btn-danger" onClick={ e => propose(account, false)}>
+            <button type="button" className="btn btn-outline-danger" onClick={ e => propose(account, false)}>
               Denied
             </button>
           </label>
@@ -202,17 +219,17 @@ function App() {
                 </Select>
               </FormControl>
           </label>
-          <button type="button" className="btn btn-warning" onClick={ e => discard(addressToDiscard)}>
+          <button type="button" className="btn btn-outline-warning" onClick={ e => discard(addressToDiscard)}>
             Discard
           </button>
-          <br/>
-        <label>
-          <button onClick = {getSigners} type="button" className = "btn btn-info"> Get Signers </button>
-          <button onClick = {checkStatus} type="button" className = "btn btn-info"> Check Status </button>
-          <button onClick = {checkProposals} type="button" className = "btn btn-info"> Check Proposals </button>
-          <button onClick = {getSnapShot} type="button" className = "btn btn-info"> Get SnapShot </button>
-          <button onClick = {getAccountToVote} type="button" className = "btn btn-info">getAccounts </button>
-        </label>
+          <br />
+          <div className="infoBtn">
+            <MenuItem onClick = {getSigners}> Signers </MenuItem>
+            <MenuItem onClick = {checkProposals} type="button" className = "btn btn-info"> Your proposals </MenuItem>
+            <MenuItem onClick = {getAccountToVote} type="button" className = "btn btn-info"> Pending account </MenuItem>
+            <MenuItem onClick = {checkStatus} type="button" className = "btn btn-info"> Status </MenuItem>
+            <MenuItem onClick = {getSnapShot} type="button" className = "btn btn-info"> SnapShot </MenuItem>
+          </div>
       </header>
     </div>  
   );
@@ -220,3 +237,10 @@ function App() {
 
 export default App;
 
+/*
+<button onClick = {getSigners} type="button" className = "btn btn-info"> Get Signers </button>
+          <button onClick = {checkStatus} type="button" className = "btn btn-info"> Check Status </button>
+          <button onClick = {checkProposals} type="button" className = "btn btn-info"> Check Proposals </button>
+          <button onClick = {getSnapShot} type="button" className = "btn btn-info"> Get SnapShot </button>
+          <button onClick = {getAccountToVote} type="button" className = "btn btn-info">getAccounts </button>
+          */
