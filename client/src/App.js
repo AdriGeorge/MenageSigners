@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Menu from '@material-ui/core/Menu';
+import { Button, Navbar, Nav } from 'react-bootstrap'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -163,8 +164,9 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-       Account to propose:
+      <header className="App-header"></header>
+      <div className="App-body">
+        Account to propose:
           <label>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-controlled-open-select-label">Account</InputLabel>
@@ -222,15 +224,24 @@ function App() {
           <button type="button" className="btn btn-outline-warning" onClick={ e => discard(addressToDiscard)}>
             Discard
           </button>
-          <br />
-          <div className="infoBtn">
-            <MenuItem onClick = {getSigners}> Signers </MenuItem>
-            <MenuItem onClick = {checkProposals} type="button" className = "btn btn-info"> Your proposals </MenuItem>
-            <MenuItem onClick = {getAccountToVote} type="button" className = "btn btn-info"> Pending account </MenuItem>
-            <MenuItem onClick = {checkStatus} type="button" className = "btn btn-info"> Status </MenuItem>
-            <MenuItem onClick = {getSnapShot} type="button" className = "btn btn-info"> SnapShot </MenuItem>
           </div>
-      </header>
+          <div className="infoBtn">
+          
+          </div>
+          <footer className="infoMenu">
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  <MenuItem onClick = {getSigners}> Signers </MenuItem>
+                  <MenuItem onClick = {checkProposals} type="button" className = "btn btn-info"> Your proposals </MenuItem>
+                  <MenuItem onClick = {getAccountToVote} type="button" className = "btn btn-info"> Pending account </MenuItem>
+                  <MenuItem onClick = {checkStatus} type="button" className = "btn btn-info"> Status </MenuItem>
+                  <MenuItem onClick = {getSnapShot} type="button" className = "btn btn-info"> SnapShot </MenuItem>
+                </Nav>
+              </Navbar.Collapse>
+            </Navbar>
+          </footer> 
     </div>  
   );
 }

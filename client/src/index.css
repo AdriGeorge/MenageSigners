@@ -12,12 +12,3 @@ code {
     monospace;
 }
 
-#demo-controlled-open-select-label, #demo-controlled-open-select {
-	color: #F8F8FF;
-}
-
-.infoBtn{
- 	position: relative;
- 	left: -500px;
- 	bottom: 450px;
-}
