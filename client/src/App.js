@@ -46,11 +46,9 @@ function App() {
   const [addressToDiscardArray, setAddressToDiscard] = React.useState([]);
   const [descriptionToDiscardArray, setDescriptionsToDiscard] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [signers, setSigners] = React.useState([]);
 
-  const [status, setStatus] = React.useState({});
-  const [snapShot, setSnapShot] = React.useState({});
 
-  var signers = [];
   var nodes = {};
 
   // Methods for handle controller selected label => Account to propose and to discard
@@ -66,7 +64,7 @@ function App() {
   const handleOpen = async () => {
     if (addressToVote.length < 1) {
       getAccountToVote();
-      await new Promise(r => setTimeout(r, 200));
+      //await new Promise(r => setTimeout(r, 200));
     };
     setOpen(true);
   };
@@ -82,7 +80,7 @@ function App() {
   const handleOpenDiscard = async () => {
     if (addressToDiscardArray.length <1) {
       checkProposals();
-      await new Promise(r => setTimeout(r, 300));
+      //await new Promise(r => setTimeout(r, 300));
     };
     setOpenDiscard(true);
   };
@@ -125,14 +123,10 @@ function App() {
   };
 
   // The following methods are clique method => RPC CALL
-  const checkStatus = async () => {
-    const result = await client.request({method: "clique_status", params: []});
-    setStatus(result)
-    console.log('renderStatus' + status)
-  };
 
   const getSigners = async (e) => {
-    signers = await client.request({method: "clique_getSigners", params: []});
+    const result = await client.request({method: "clique_getSigners", params: []});
+    setSigners(result);
     console.log("Singers: " + signers);
   };
 
@@ -140,6 +134,7 @@ function App() {
     await client.request({method: "clique_propose", params: [e, vote]});
     addressToDiscardArray[addressToDiscardArray.length] = e;
     console.log("Your proposal: " + e + ", " + vote);
+    setAccount("");
   };
 
   function getDescription(account) {
@@ -158,6 +153,7 @@ function App() {
       descriptionToDiscardArray.splice(i, 1);
     }
     console.log("You just discard: " + e);
+    setAddressToDiscard([]);
   };
 
   const checkProposals = async (e) => {
@@ -168,12 +164,18 @@ function App() {
     console.log("Address already voted: " + addressToDiscardArray);
   };
 
-  const getSnapShot = async (e) => {
-    const result = await client.request({method: "clique_getSnapshot", params: []});
-    setSnapShot(result)
-    console.log("setRenderSNap " + snapShot)
-  };
+  // method for render information about current signers
 
+  function getInfo() {
+    getSigners();
+    var info = document.getElementById("info");
+    console.log(info.style.display)
+    if(info.style.display === "" ) {
+      info.style.display = "block";
+    } else {
+      info.style.display = "";
+    }
+  };
 
   return (
     <div className="App">
@@ -237,17 +239,23 @@ function App() {
             Discard
           </button>
           </div>
-          <div className="info"></div>
+          <div className="info">
+            <div id="info">
+              {signers.map((value, i) => {
+                return <li value={signers[i]}>{value}</li>
+              })}
+              <br />
+              <div id="howMany">
+              Right now there are {signers.length} signers.
+              </div>
+            </div>
+          </div>
           <footer className="infoMenu">
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                  <MenuItem onClick = {getSigners}> Signers </MenuItem>
-                  <MenuItem onClick = {checkProposals} type="button" className = "btn btn-info"> Your proposals </MenuItem>
-                  <MenuItem onClick = {getAccountToVote} type="button" className = "btn btn-info"> Pending account </MenuItem>
-                  <MenuItem onClick = {checkStatus} type="button" className = "btn btn-info"> Status </MenuItem>
-                  <MenuItem onClick = {getSnapShot} type="button" className = "btn btn-info"> SnapShot </MenuItem>
+                  <MenuItem onClick = {getInfo}> Current Signer </MenuItem>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
