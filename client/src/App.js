@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Menu from '@material-ui/core/Menu';
-import { Button, Navbar, Nav } from 'react-bootstrap'
+import { Button, Navbar, Nav } from 'react-bootstrap';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -42,12 +42,16 @@ function App() {
   const [open, setOpen] = React.useState(false);
   const [openDiscard, setOpenDiscard] = React.useState(false);
   const [addressToVote, setAddressToVote] = React.useState([]);
+  const [addressDescription, setAddressDescription] = React.useState([]);
   const [addressToDiscardArray, setAddressToDiscard] = React.useState([]);
+  const [descriptionToDiscardArray, setDescriptionsToDiscard] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const [status, setStatus] = React.useState({});
+  const [snapShot, setSnapShot] = React.useState({});
 
   var signers = [];
   var nodes = {};
-  var addressDescription = [];
 
   // Methods for handle controller selected label => Account to propose and to discard
 
@@ -78,7 +82,7 @@ function App() {
   const handleOpenDiscard = async () => {
     if (addressToDiscardArray.length <1) {
       checkProposals();
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 300));
     };
     setOpenDiscard(true);
   };
@@ -96,7 +100,7 @@ function App() {
 
 
   // This method interact with the smart contract WhiteList.sol
-  const getAccountToVote = async () => {
+  const getAccountToVote = async (e) => {
     const array = [];
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
@@ -109,7 +113,7 @@ function App() {
         addressDescription[i] = nodes[i].description;
       };
     };
-    console.log("Account To Vote: " + nodes);
+    console.log("addDesc " + addressDescription);
   };
 
   function alreadySigner(node) {
@@ -123,11 +127,11 @@ function App() {
   // The following methods are clique method => RPC CALL
   const checkStatus = async () => {
     const result = await client.request({method: "clique_status", params: []});
-    console.log("Status:")
-    console.log(result);
+    setStatus(result)
+    console.log('renderStatus' + status)
   };
 
-  const getSigners = async () => {
+  const getSigners = async (e) => {
     signers = await client.request({method: "clique_getSigners", params: []});
     console.log("Singers: " + signers);
   };
@@ -135,19 +139,28 @@ function App() {
   const propose = async (e, vote) => {
     await client.request({method: "clique_propose", params: [e, vote]});
     addressToDiscardArray[addressToDiscardArray.length] = e;
-    console.log("Your proposal: " + e + ", "+ vote);
+    console.log("Your proposal: " + e + ", " + vote);
+  };
+
+  function getDescription(account) {
+    for(var i=0; i<nodes.length; i++){
+      if (nodes[i].nodeAddress === account) return nodes[i].description;
+    }
+    return null;
   };
 
   const discard = async (e) => {
+
     await client.request({method: "clique_discard", params: [e]});
     var i = addressToDiscardArray.indexOf(e);
     if(i > -1){
       addressToDiscardArray.splice(i, 1);
+      descriptionToDiscardArray.splice(i, 1);
     }
     console.log("You just discard: " + e);
   };
 
-  const checkProposals = async () => {
+  const checkProposals = async (e) => {
     const result = await client.request({method: "clique_proposals", params: []});
     for (let i=0; i<result.length; i++){
       addressToDiscardArray[i] = result[i];
@@ -155,16 +168,15 @@ function App() {
     console.log("Address already voted: " + addressToDiscardArray);
   };
 
-  const getSnapShot = async () => {
+  const getSnapShot = async (e) => {
     const result = await client.request({method: "clique_getSnapshot", params: []});
-    console.log("SnapShot:");
-    console.log(result);
+    setSnapShot(result)
+    console.log("setRenderSNap " + snapShot)
   };
 
 
   return (
     <div className="App">
-      <header className="App-header"></header>
       <div className="App-body">
         Account to propose:
           <label>
@@ -183,7 +195,7 @@ function App() {
                     <em>None</em>
                   </MenuItem>
                   {addressToVote.map((value, index) => {
-                    return <MenuItem value={addressToVote[index]}>{value} </MenuItem>
+                    return <MenuItem value={addressToVote[index]}>{value}, {addressDescription[index]} </MenuItem>
                   })}
                 </Select>
               </FormControl>
@@ -225,9 +237,7 @@ function App() {
             Discard
           </button>
           </div>
-          <div className="infoBtn">
-          
-          </div>
+          <div className="info"></div>
           <footer className="infoMenu">
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -247,11 +257,3 @@ function App() {
 }
 
 export default App;
-
-/*
-<button onClick = {getSigners} type="button" className = "btn btn-info"> Get Signers </button>
-          <button onClick = {checkStatus} type="button" className = "btn btn-info"> Check Status </button>
-          <button onClick = {checkProposals} type="button" className = "btn btn-info"> Check Proposals </button>
-          <button onClick = {getSnapShot} type="button" className = "btn btn-info"> Get SnapShot </button>
-          <button onClick = {getAccountToVote} type="button" className = "btn btn-info">getAccounts </button>
-          */
