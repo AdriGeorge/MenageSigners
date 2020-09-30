@@ -17,6 +17,7 @@ contract WhiteList {
     struct Signer {
         address signer;
         address[] whiteNodesVoted;
+        string[] vote;
     }
 
     mapping(address => WhiteNode) whitenodes;
@@ -77,17 +78,25 @@ contract WhiteList {
     
     /** 
      * @dev Add the node that the signer voted
-     * @param _address of node to add into voted list of signer
+     * @param _address of node to add into vote list of signer
+     * @param _vote description of the whitenode
      */ 
-    function whiteNodeVoted(address _address) public onlySigner {
-        signers[msg.sender].whiteNodesVoted.push(_address); 
-    }
-
-    /** 
-     * @dev Return signer's list of voted nodes 
-     */ 
-    function getVotedNodes() public onlySigner view returns (address[] memory) {
-        return signers[msg.sender].whiteNodesVoted;
+    function vote(address _address, string memory _vote) public onlySigner {
+        signers[msg.sender].whiteNodesVoted.push(_address);
+        signers[msg.sender].vote.push(_vote);
     }
     
+    /** 
+     * @dev Return a signer vote in index i
+     */ 
+    function getVotedNode(uint i) public onlySigner view returns (address, string memory) {
+        return (signers[msg.sender].whiteNodesVoted[i], signers[msg.sender].vote[i]);
+    }
+    
+    /** 
+     * @dev Return length of signer's vote list
+     */ 
+    function getVotedListLength() public onlySigner view returns (uint) {
+        return signers[msg.sender].whiteNodesVoted.length;
+    }
 }

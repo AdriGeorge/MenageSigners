@@ -4,28 +4,66 @@
 
 .App-body {
   background-color: #282c34;
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-height: 90vh;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.info {
-  background-color: #282c34;
+#vote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  color: white; 
-  min-height: 20vh;
+  float: left;
+  height: 90vh;
+  width: 70%;
 }
 
-#info {
+#information {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  width: 30%;
+}
+
+.lastNodeVoted{
+  font-size: calc(4px + 1vmin);
+  height: 80vh;
+  max-height: 80vh;
+  width: 100%;
+  text-align: left;
+  padding: 100px 0;
+}
+
+h3 {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+h6 {
+  padding-left: 25px;
+}
+
+#text {
+  display: inline-block;
+  text-decoration: underline;
+  color: #CBC9C7;
+}
+
+#lastNodeVoted {
   display: none;
+  height: 100%;
+  width: 100%;
 }
 
-#howMany {
-  font-size: calc(10px + 2vmin);
+#infoSigner {
+  display: none;
+  font-size: calc(4px + 1vmin);
+  flex-direction: column;
+  height: 10vh;
+  max-height: 10vh;
+  text-align: left;
+  width: 100%;
 }
 
 .infoMenu {
@@ -37,6 +75,7 @@
   flex-direction: column;
   justify-content: center;
   font-size: calc(5px + 2vmin);
+  text-align: right;
 }
 #demo-controlled-open-select-label, #demo-controlled-open-select {
   color: #F8F8FF;
