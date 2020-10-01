@@ -16,23 +16,45 @@
   justify-content: center;
   float: left;
   height: 90vh;
-  width: 70%;
+  width: 50%;
+  padding-bottom: 8%;
 }
 
 #information {
   display: flex;
-  flex-direction: column;
   height: 90vh;
-  width: 30%;
+  width: 50%;
 }
 
 .lastNodeVoted{
   font-size: calc(4px + 1vmin);
-  height: 80vh;
-  max-height: 80vh;
-  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  width: 60%;
   text-align: left;
-  padding: 100px 0;
+  padding: 50px 0;
+  display: inline-block;
+  float: left;
+}
+
+#lastNodeVoted {
+  display: none;
+}
+
+.infoSigner{
+  font-size: calc(4px + 1vmin);
+  height: 100%;
+  max-height: 100%;
+  width: 40%;
+  padding: 50px 0;
+  display: inline-block;
+  float: left;
+  text-align: left;
+}
+
+#infoSigner {
+  display: none;
+  padding-bottom: 30%;
 }
 
 h3 {
@@ -50,22 +72,6 @@ h6 {
   color: #CBC9C7;
 }
 
-#lastNodeVoted {
-  display: none;
-  height: 100%;
-  width: 100%;
-}
-
-#infoSigner {
-  display: none;
-  font-size: calc(4px + 1vmin);
-  flex-direction: column;
-  height: 10vh;
-  max-height: 10vh;
-  text-align: left;
-  width: 100%;
-}
-
 .infoMenu {
   background-color: #282c34;
   min-height: 10vh;
@@ -76,6 +82,7 @@ h6 {
   justify-content: center;
   font-size: calc(5px + 2vmin);
   text-align: right;
+  padding-right: 50%;
 }
 #demo-controlled-open-select-label, #demo-controlled-open-select {
   color: #F8F8FF;

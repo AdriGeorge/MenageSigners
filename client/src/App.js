@@ -12,7 +12,6 @@ import { Button, Navbar, Nav } from 'react-bootstrap';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-console.log("1")
 
 const transport = new HTTPTransport("http://localhost:8501");
 const requestManager = new RequestManager([transport]);
@@ -22,11 +21,8 @@ const web3 = new Web3(Web3.givenProvider);
 const contractAddr = '0xeDc3A86474dde032468de4Ae0CF938698A68BBEC';
 const WhiteListContract = new web3.eth.Contract(contract, contractAddr);
 
-console.log("2")
 
 function App() {
-
-  console.log("3")
 
   const useStyles = makeStyles((theme) => ({
     button: {
@@ -51,26 +47,22 @@ function App() {
   const [addressToDiscardArray, setAddressToDiscardArray] = React.useState([]);
   const [descriptionToDiscardArray, setDescriptionsToDiscard] = React.useState([]);
   const [signers, setSigners] = React.useState([]);
-  const [votedList, setVotedList] = React.useState({});
+  const [votedList, setVotedList] = React.useState({whitenode: '', vote: ''});
 
+  var votedListCopy = {};
   var nodes = {};
   //var votedList = {};
   var proposals = {};
 
-  console.log("4")
   // Methods for handle controller selected label => Account to propose and to discard
 
   function handleChange (event) {
     setAccount(event.target.value);
   };
 
-  console.log("5")
-
   function handleClose () {
     setOpen(false);
   };
-
-  console.log("6")
 
   async function handleOpen () {
     if (addressToVote.length < 1) {
@@ -80,19 +72,15 @@ function App() {
     setOpen(true);
   };
 
-  console.log("7")
 
   function handleChangeDiscard (event) {
     setAddressToDiscard(event.target.value);
   };
 
-  console.log("8")
 
   function handleCloseDiscard () {
     setOpenDiscard(false);
   };
-
-  console.log("9")
 
   async function handleOpenDiscard () {
     checkProposals();
@@ -112,24 +100,24 @@ function App() {
     setAnchorEl(null);
   };
 
-  console.log("10")
-
   // This method interact with the smart contract WhiteList.sol
   async function getAccountToVote (e) {
     const listLength = await WhiteListContract.methods.getWhiteListLength().call();
     console.log("list length: " + listLength )
+    var addressToVoteCopy = [];
+    var addressDescriptionCopy = [];
     for (let i=0; i<listLength; i++){
       let result = await WhiteListContract.methods.getWhiteNode(i).call();
       if(!alreadySigner(result[0])){
         nodes[i] = {nodeAddress: result[0], description: result[1]};
-        addressToVote[i] = nodes[i].nodeAddress;
-        addressDescription[i] = nodes[i].description;
+        addressToVoteCopy[i] = nodes[i].nodeAddress;
+        addressDescriptionCopy[i] = nodes[i].description;
       };
     };
+    setAddressToVote(addressToVoteCopy);
+    setAddressDescription(addressDescriptionCopy);
     console.log("addDesc " + addressDescription);
   };
-
-  console.log("11")
 
   function alreadySigner(node) {
     if (signers.length < 1) getSigners();
@@ -143,14 +131,12 @@ function App() {
 
   async function getSigners () {
     console.log("Sono entrato qua 2");
-    const result = await client.request({method: "clique_getSigners", params: []});
-    await new Promise(r => setTimeout(r, 300));
+    const result = await client.request({method: "clique_getSigners", params: []}); 
     setSigners(result);
     console.log("signers:")
     console.log(signers);
   };
 
-  console.log("12")
 
   async function propose (e, vote) {
     await client.request({method: "clique_propose", params: [e, vote]});
@@ -179,7 +165,7 @@ function App() {
     checkProposals();
   };
 
-  console.log("13")
+
 
   async function checkProposals (e) {
     const result = await client.request({method: "clique_proposals", params: []});
@@ -190,10 +176,8 @@ function App() {
 
   // method for render information about current signers
 
-  async function getInfo() {
-    console.log("CAZZ CI FACCCI OQUA");
-    await getSigners();
-
+  async function getInfoSigners() {
+    getSigners();
     var info = document.getElementById("infoSigner");
     console.log(info.style.display)
     if(info.style.display === "" || info.style.display === "none") {
@@ -203,16 +187,10 @@ function App() {
     }
   };
 
-  console.log("14")
-
-  async function getInformation() {
-    getInfo();
-    getVoteList();
-  }
 
   // get signer's vote list
 
-  async function getVoteList () {
+  async function getVoteList (update) {
     console.log("Sono entrato qua 1");
     await getSigners();
     console.log("Ora sono qua 3");
@@ -225,21 +203,28 @@ function App() {
       let result = await WhiteListContract.methods.getVotedNode(i).call({
         from: accounts[0]
       });
-      votedList[i] = {whiteNode: result[0], vote: result[1]};
-    };    
+      votedListCopy[i] = {whiteNode: result[0], vote: result[1]};
+    }; 
+    setVotedList(votedListCopy) 
+
+    console.log(votedList[0])
+
     var lastNodeVoted = document.getElementById("lastNodeVoted");
-    console.log(votedList)
-    console.log("info che mi serve " + lastNodeVoted.style.display)
-    if(lastNodeVoted.style.display === 'none' || lastNodeVoted.style.display === "") {
-      console.log("sono qua")
-      lastNodeVoted.style.display = "block";
+    if(update != 1){
+      console.log("info che mi serve " + lastNodeVoted.style.display)
+      if(lastNodeVoted.style.display === 'none' || lastNodeVoted.style.display === "") {
+        console.log("sono qua")
+        lastNodeVoted.style.display = "block";
+      } else {
+        lastNodeVoted.style.display = "none";
+      }
+      console.log("info che mi serve2 " + lastNodeVoted.style.display)
     } else {
-      lastNodeVoted.style.display = "none";
+      var votelist0 = document.getElementById("lastNodeVoted");
+
     }
-    console.log("info che mi serve2 " + lastNodeVoted.style.display)
   };
 
-  console.log("15")
   // push node voted into node voted list of signer in contract
 
   async function voteNode (addressOf, vote) {
@@ -251,13 +236,15 @@ function App() {
     });
     console.log(result);
     console.log("added to contract" + addressOf + ", " + vote);
-    getVoteList();
+    document.getElementById("lastNodeVoted").innerHtml = "Refreshing";
+    getVoteList(1);
   };
 
-  
-  console.log("ciao sto per chiamare getSigner");
+  function updateVoteList() {
+    console.log("sono quaaaaa")
+    getVoteList(1);
+  }
 
-  console.log("16")
   return (
     <div className="App">
       <div className="App-body">
@@ -321,7 +308,7 @@ function App() {
         </section>
         <section id="information">
           <div className="lastNodeVoted">
-            <div id="lastNodeVoted">
+            <div id="lastNodeVoted" onChange={updateVoteList}>
               <h3>Your vote list: </h3>
               <ol>
                 {Object.entries(votedList).map(([key, value], i) => {
@@ -336,8 +323,9 @@ function App() {
               </ol>
             </div>
           </div>
+          <div className="infoSigner">
             <div id="infoSigner">
-              <h6> List of signers </h6>
+              <h3> List of signers </h3>
               <ul>
                 {signers.map((value, i) => {
                   return (
@@ -346,6 +334,7 @@ function App() {
                 })}
               </ul>
             </div>
+          </div>
         </section>
       </div>
       <footer className="infoMenu">
@@ -353,7 +342,8 @@ function App() {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <MenuItem onClick = {getInformation}> Information </MenuItem>
+              <MenuItem onClick = {getVoteList}> Votes List </MenuItem>
+              <MenuItem onClick = {getInfoSigners}> Signers list </MenuItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
