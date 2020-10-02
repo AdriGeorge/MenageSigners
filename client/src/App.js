@@ -18,11 +18,16 @@ const requestManager = new RequestManager([transport]);
 const client = new Client(new RequestManager([transport]));
 const web3 = new Web3(Web3.givenProvider);
 
-const contractAddr = '0xeDc3A86474dde032468de4Ae0CF938698A68BBEC';
+const contractAddr = '0x626AdDeaD8b7A4b057F4D5acaD6d5f6bf3730864';
 const WhiteListContract = new web3.eth.Contract(contract, contractAddr);
-
+var x = true;
 
 function App() {
+  if(x){
+    checkProposals();
+    getAccountToVote();
+    x = false;
+  }
 
   const useStyles = makeStyles((theme) => ({
     button: {
@@ -38,21 +43,15 @@ function App() {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [addressToDiscard, setAddressToDiscard] = React.useState();
-  const [account, setAccount] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [openDiscard, setOpenDiscard] = React.useState(false);
+  const [addressToDiscard, setAddressToDiscard] = React.useState();
+  const [account, setAccount] = React.useState('');
   const [addressToVote, setAddressToVote] = React.useState([]);
   const [addressDescription, setAddressDescription] = React.useState([]);
-  const [addressToDiscardArray, setAddressToDiscardArray] = React.useState([]);
-  const [descriptionToDiscardArray, setDescriptionsToDiscard] = React.useState([]);
+  const [proposals, setProposals] = React.useState([]);
   const [signers, setSigners] = React.useState([]);
   const [votedList, setVotedList] = React.useState({whitenode: '', vote: ''});
-
-  var votedListCopy = {};
-  var nodes = {};
-  //var votedList = {};
-  var proposals = {};
 
   // Methods for handle controller selected label => Account to propose and to discard
 
@@ -65,10 +64,7 @@ function App() {
   };
 
   async function handleOpen () {
-    if (addressToVote.length < 1) {
-      getAccountToVote();
-      //await new Promise(r => setTimeout(r, 200));
-    };
+    getAccountToVote();
     setOpen(true);
   };
 
@@ -84,8 +80,6 @@ function App() {
 
   async function handleOpenDiscard () {
     checkProposals();
-    console.log("handle ofpen discard");
-      //await new Promise(r => setTimeout(r, 300));
     setOpenDiscard(true);
   };
 
@@ -102,22 +96,41 @@ function App() {
 
   // This method interact with the smart contract WhiteList.sol
   async function getAccountToVote (e) {
+    checkProposals();
     const listLength = await WhiteListContract.methods.getWhiteListLength().call();
     console.log("list length: " + listLength )
+    var nodes = {};
     var addressToVoteCopy = [];
     var addressDescriptionCopy = [];
     for (let i=0; i<listLength; i++){
       let result = await WhiteListContract.methods.getWhiteNode(i).call();
-      if(!alreadySigner(result[0])){
+      console.log(result[0]);
+      if(!alreadySigner(result[0]) && !alreadyVoted(result[0])){
+        console.log("sono nell'if")
         nodes[i] = {nodeAddress: result[0], description: result[1]};
         addressToVoteCopy[i] = nodes[i].nodeAddress;
         addressDescriptionCopy[i] = nodes[i].description;
+        console.log(nodes[i]);
       };
     };
     setAddressToVote(addressToVoteCopy);
     setAddressDescription(addressDescriptionCopy);
-    console.log("addDesc " + addressDescription);
   };
+
+
+  function alreadyVoted(address){
+    checkProposals();
+    console.log("address " + address + " proposals " + proposals[0])
+    for(var i=0; i<proposals.length; i++){
+      console.log("Sono nel for ")
+      if(proposals[i].toString().toLowerCase() === address.toString().toLowerCase()){
+        console.log("true");
+        return true;
+       }
+    }
+    console.log("sono false ")
+    return false;
+  }
 
   function alreadySigner(node) {
     if (signers.length < 1) getSigners();
@@ -130,49 +143,30 @@ function App() {
   // The following methods are clique method => RPC CALL
 
   async function getSigners () {
-    console.log("Sono entrato qua 2");
     const result = await client.request({method: "clique_getSigners", params: []}); 
     setSigners(result);
-    console.log("signers:")
-    console.log(signers);
   };
-
 
   async function propose (e, vote) {
     await client.request({method: "clique_propose", params: [e, vote]});
-    console.log("Your proposal: " + e + ", " + vote);
     setAccount("");
-    addressToDiscardArray.push(e);
+    getAccountToVote();
     voteNode(e, vote.toString());
   };
 
-  function getDescription(account) {
-    for(var i=0; i<nodes.length; i++){
-      if (nodes[i].nodeAddress === account) return nodes[i].description;
-    }
-    return null;
-  };
-
   async function discard (e) {
+    console.log("you want to discard:" + e);
     await client.request({method: "clique_discard", params: [e]});
-    var i = addressToDiscardArray.indexOf(e);
-    if(i > -1){
-      addressToDiscardArray.splice(i, 1);
-      descriptionToDiscardArray.splice(i, 1);
-    }
-    console.log("You just discard: " + e);
     setAddressToDiscard("");
     checkProposals();
+    getAccountToVote();
   };
-
-
 
   async function checkProposals (e) {
     const result = await client.request({method: "clique_proposals", params: []});
-    console.log(result);
-    proposals = result;
-    console.log("Address already voted: " + proposals);
-  };
+    setProposals(Object.keys(result));
+  }
+
 
   // method for render information about current signers
 
@@ -191,9 +185,8 @@ function App() {
   // get signer's vote list
 
   async function getVoteList (update) {
-    console.log("Sono entrato qua 1");
     await getSigners();
-    console.log("Ora sono qua 3");
+    var votedListCopy = {};
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
     const listLength = await WhiteListContract.methods.getVotedListLength().call({
@@ -207,18 +200,14 @@ function App() {
     }; 
     setVotedList(votedListCopy) 
 
-    console.log(votedList[0])
-
     var lastNodeVoted = document.getElementById("lastNodeVoted");
     if(update != 1){
       console.log("info che mi serve " + lastNodeVoted.style.display)
       if(lastNodeVoted.style.display === 'none' || lastNodeVoted.style.display === "") {
-        console.log("sono qua")
         lastNodeVoted.style.display = "block";
       } else {
         lastNodeVoted.style.display = "none";
       }
-      console.log("info che mi serve2 " + lastNodeVoted.style.display)
     } else {
       var votelist0 = document.getElementById("lastNodeVoted");
 
@@ -239,11 +228,6 @@ function App() {
     document.getElementById("lastNodeVoted").innerHtml = "Refreshing";
     getVoteList(1);
   };
-
-  function updateVoteList() {
-    console.log("sono quaaaaa")
-    getVoteList(1);
-  }
 
   return (
     <div className="App">
@@ -296,8 +280,8 @@ function App() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {addressToDiscardArray.map((value, index) => {
-                  return <MenuItem value={addressToDiscardArray[index]}>{value}</MenuItem>
+                {proposals.map((value, index) => {
+                  return <MenuItem value={proposals[index]}>{value}</MenuItem>
                 })}
               </Select>
             </FormControl>
@@ -308,7 +292,7 @@ function App() {
         </section>
         <section id="information">
           <div className="lastNodeVoted">
-            <div id="lastNodeVoted" onChange={updateVoteList}>
+            <div id="lastNodeVoted">
               <h3>Your vote list: </h3>
               <ol>
                 {Object.entries(votedList).map(([key, value], i) => {
