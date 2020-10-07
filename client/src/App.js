@@ -98,19 +98,18 @@ function App() {
   async function getAccountToVote (e) {
     checkProposals();
     const listLength = await WhiteListContract.methods.getWhiteListLength().call();
-    console.log("list length: " + listLength )
+    //console.log("list length: " + listLength )
     var nodes = {};
     var addressToVoteCopy = [];
     var addressDescriptionCopy = [];
     for (let i=0; i<listLength; i++){
       let result = await WhiteListContract.methods.getWhiteNode(i).call();
-      console.log(result[0]);
+      //console.log(result[0]);
       if(!alreadySigner(result[0]) && !alreadyVoted(result[0])){
-        console.log("sono nell'if")
         nodes[i] = {nodeAddress: result[0], description: result[1]};
         addressToVoteCopy[i] = nodes[i].nodeAddress;
         addressDescriptionCopy[i] = nodes[i].description;
-        console.log(nodes[i]);
+        //console.log(nodes[i]);
       };
     };
     setAddressToVote(addressToVoteCopy);
@@ -120,7 +119,7 @@ function App() {
 
   function alreadyVoted(address){
     checkProposals();
-    console.log("address " + address + " proposals " + proposals[0])
+    //console.log("address " + address + " proposals " + proposals[0])
     for(var i=0; i<proposals.length; i++){
       console.log("Sono nel for ")
       if(proposals[i].toString().toLowerCase() === address.toString().toLowerCase()){
@@ -181,9 +180,7 @@ function App() {
     }
   };
 
-
   // get signer's vote list
-
   async function getVoteList (update) {
     await getSigners();
     var votedListCopy = {};
@@ -199,23 +196,17 @@ function App() {
       votedListCopy[i] = {whiteNode: result[0], vote: result[1]};
     }; 
     setVotedList(votedListCopy) 
-
     var lastNodeVoted = document.getElementById("lastNodeVoted");
     if(update != 1){
-      console.log("info che mi serve " + lastNodeVoted.style.display)
       if(lastNodeVoted.style.display === 'none' || lastNodeVoted.style.display === "") {
         lastNodeVoted.style.display = "block";
       } else {
         lastNodeVoted.style.display = "none";
       }
-    } else {
-      var votelist0 = document.getElementById("lastNodeVoted");
-
-    }
+    };
   };
 
   // push node voted into node voted list of signer in contract
-
   async function voteNode (addressOf, vote) {
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
