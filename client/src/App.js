@@ -13,21 +13,26 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-const transport = new HTTPTransport("http://localhost:8501");
+// rpc of your node -> for rpc call (clique methods)
+const transport = new HTTPTransport("http://localhost:8508");
 const requestManager = new RequestManager([transport]);
 const client = new Client(new RequestManager([transport]));
 const web3 = new Web3(Web3.givenProvider);
 
-const contractAddr = '0x626AdDeaD8b7A4b057F4D5acaD6d5f6bf3730864';
+const contractAddr = '0xd6aB24610fEb60Afb9942297839a8E855E99D5f0';
 const WhiteListContract = new web3.eth.Contract(contract, contractAddr);
 var x = true;
 
 function App() {
   if(x){
+    console.log("sono qua")
+    getSigners()
     checkProposals();
     getAccountToVote();
+    loginCheck()
     x = false;
   }
+
 
   const useStyles = makeStyles((theme) => ({
     button: {
@@ -52,6 +57,7 @@ function App() {
   const [proposals, setProposals] = React.useState([]);
   const [signers, setSigners] = React.useState([]);
   const [votedList, setVotedList] = React.useState({whitenode: '', vote: ''});
+  const [myAccountMeta, setMyAccount] = React.useState('');
 
   // Methods for handle controller selected label => Account to propose and to discard
 
@@ -61,11 +67,12 @@ function App() {
 
   function handleClose () {
     setOpen(false);
+    getAccountToVote();
   };
 
   async function handleOpen () {
-    getAccountToVote();
-    setOpen(true);
+      getAccountToVote();
+      setOpen(true);
   };
 
 
@@ -94,6 +101,15 @@ function App() {
     setAnchorEl(null);
   };
 
+
+  async function loginCheck(){
+    const accounts = await window.ethereum.enable();
+    console.log(accounts[0])
+    setMyAccount(accounts[0]);
+    console.log("my account" + myAccountMeta);
+  }
+
+
   // This method interact with the smart contract WhiteList.sol
   async function getAccountToVote (e) {
     checkProposals();
@@ -104,7 +120,7 @@ function App() {
     var addressDescriptionCopy = [];
     for (let i=0; i<listLength; i++){
       let result = await WhiteListContract.methods.getWhiteNode(i).call();
-      //console.log(result[0]);
+      console.log("account signer: " +result[0]);
       if(!alreadySigner(result[0]) && !alreadyVoted(result[0])){
         nodes[i] = {nodeAddress: result[0], description: result[1]};
         addressToVoteCopy[i] = nodes[i].nodeAddress;
@@ -114,6 +130,8 @@ function App() {
     };
     setAddressToVote(addressToVoteCopy);
     setAddressDescription(addressDescriptionCopy);
+    console.log(addressToVote)
+    //console.log("my account" + myAccountMeta);
   };
 
 
@@ -134,7 +152,7 @@ function App() {
   function alreadySigner(node) {
     if (signers.length < 1) getSigners();
     for (var i=0; i<signers.length; i++){
-      if (signers[i] === node) return true;
+      if (signers[i].toString().toLowerCase() === node.toString().toLowerCase()) return true;
     }
     return false;
   };
@@ -144,9 +162,15 @@ function App() {
   async function getSigners () {
     const result = await client.request({method: "clique_getSigners", params: []}); 
     setSigners(result);
+    console.log(result);
+    console.log("questi sono i signers");
   };
 
   async function propose (e, vote) {
+    if(!signers.includes(myAccountMeta)){
+      alert("You are not a signer!");
+      return;
+    }
     await client.request({method: "clique_propose", params: [e, vote]});
     setAccount("");
     getAccountToVote();
@@ -182,10 +206,11 @@ function App() {
 
   // get signer's vote list
   async function getVoteList (update) {
-    await getSigners();
+    getSigners();
     var votedListCopy = {};
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
+    console.log(accounts);
     const listLength = await WhiteListContract.methods.getVotedListLength().call({
       from: accounts[0]
     });
@@ -197,7 +222,7 @@ function App() {
     }; 
     setVotedList(votedListCopy) 
     var lastNodeVoted = document.getElementById("lastNodeVoted");
-    if(update != 1){
+    if(update !== 1){
       if(lastNodeVoted.style.display === 'none' || lastNodeVoted.style.display === "") {
         lastNodeVoted.style.display = "block";
       } else {
@@ -217,12 +242,30 @@ function App() {
     console.log(result);
     console.log("added to contract" + addressOf + ", " + vote);
     document.getElementById("lastNodeVoted").innerHtml = "Refreshing";
+    if (vote) addSigner(addressOf);
     getVoteList(1);
+    getSigners();
   };
+
+
+  async function addSigner(addressToAdd) {
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    if(signers.includes(addressToAdd)){
+      console.log("add signer into contract");
+      await WhiteListContract.methods.addSigner(addressToAdd).send({
+        from: accounts[0]
+      });
+    }
+  }
+
+  loginCheck();
 
   return (
     <div className="App">
       <div className="App-body">
+        <div id="login2">Logged as : </div>
+        <div id="login"> {myAccountMeta}</div>
         <section id="vote">
           Account to propose:
           <label>
@@ -280,7 +323,7 @@ function App() {
           <button type="button" className="btn btn-outline-warning" onClick={ e => discard(addressToDiscard)}>
             Discard
           </button>
-        </section>
+        </section>  
         <section id="information">
           <div className="lastNodeVoted">
             <div id="lastNodeVoted">

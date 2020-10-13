@@ -63,7 +63,7 @@ contract WhiteList {
     /** 
      * @dev Return white node in position i
      */
-    function getWhiteNode(uint i) public view returns (address, string memory) {
+    function getWhiteNode(uint i) public onlySigner view returns (address, string memory) {
         return (whitelist[i].node, whitelist[i].description);
     }
     
@@ -71,7 +71,7 @@ contract WhiteList {
      * @dev Add a signer into contract
      * @param _address of node to add into signers
      */ 
-    function addSigner(address _address) public onlyOwner {
+    function addSigner(address _address) public onlySigner {
         signers[_address].signer = _address;
         signersList.push(signers[_address]);
     }
